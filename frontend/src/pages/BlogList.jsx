@@ -6,12 +6,7 @@ import Blogs from '../components/Blogs/Blogs'
 
 const BlogList = () => {
   return (
-    <>
-        <Header />
         <Blogs />
-        <Policy />
-        <Footer />
-    </>
   )
 }
 

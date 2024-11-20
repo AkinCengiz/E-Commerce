@@ -7,11 +7,13 @@ import ProductDetail from './pages/ProductDetail';
 import ShoppingCart from './pages/ShoppingCart';
 import SingleBlog from './pages/SingleBlog';
 import './App.css';
+import Search from './components/Modals/Search';
+import Dialog from './components/Modals/Dialog';
 
 function App() {
   return (
     <div className="App">
-      <ProductDetail />
+      <Home />
     </div>
   );
 }
