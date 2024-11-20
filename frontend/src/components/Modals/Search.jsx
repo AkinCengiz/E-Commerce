@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Search.css"
 
-const Search = () => {
+const Search = ({isShow,setIsShow}) => {
+  
   return (
-    <div className="modal-search">
+    <div className={`modal-search ${isShow ? "show" : ""}`}>
     <div className="modal-wrapper">
       <h3 className="modal-title">Search for products</h3>
       <p className="modal-text">Start typing to see products you are looking for.</p>
@@ -36,8 +37,9 @@ const Search = () => {
           </a>
         </div>
       </div>
-      <i className="bi bi-x-circle" id="close-search"></i>
+      <i className="bi bi-x-circle" id="close-search" onClick={() => setIsShow(false)}></i>
     </div>
+    <div className='modal-outside' onClick={() => setIsShow(false)}></div>
   </div>
   )
 }

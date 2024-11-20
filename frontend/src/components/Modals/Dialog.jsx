@@ -30,7 +30,9 @@ const Dialog = () => {
         </div>
       </div>
     </div>
+    <div className="model-outside"></div>
   </div>
+  
   )
 }
 

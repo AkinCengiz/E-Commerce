@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css"
 
-const Header = () => {
+const Header = ({setIsShow}) => {
   return (
     <div>
       <header>
@@ -191,7 +191,7 @@ const Header = () => {
                   <a href="account.html" className="header-account">
                     <i className="bi bi-person"></i>
                   </a>
-                  <button className="search-button">
+                  <button className="search-button" onClick={() => setIsShow(true)}>
                     <i className="bi bi-search"></i>
                   </button>
                   <a href="#">
