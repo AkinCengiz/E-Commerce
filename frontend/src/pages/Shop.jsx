@@ -10,13 +10,10 @@ import ProductSingle from '../components/Products/ProductSingle'
 const Shop = () => {
   return (
     <>
-        <Header />
         <Categories />
         <Products />
         <CampaignSingle />
         <ProductSingle />
-        <Policy/>
-        <Footer/>
     </>
   )
 }

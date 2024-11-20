@@ -6,12 +6,7 @@ import SingleProductDetail from '../components/ProductDetail/SingleProductDetail
 
 const ProductDetail = () => {
   return (
-    <>
-    <Header />
     <SingleProductDetail />
-    <Policy />
-    <Footer />
-    </>
   )
 }
 

@@ -14,7 +14,6 @@ import CampaignSingle from "../components/CampaignSingle/CampaignSingle";
 const Home = () => {
   return (
     <>
-      <Header />
       <Sliders />
       <Categories />
       <Products />
@@ -23,8 +22,6 @@ const Home = () => {
       <Blogs />
       <Brands />
       <CampaignSingle />
-      <Policy />
-      <Footer />
     </>
   );
 };

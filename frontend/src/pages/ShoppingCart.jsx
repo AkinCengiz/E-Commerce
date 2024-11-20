@@ -6,12 +6,7 @@ import Footer from '../components/Layout/footer/Footer'
 
 const ShoppingCart = () => {
   return (
-    <>
-        <Header />
         <Cart />
-        <Policy />
-        <Footer />
-    </>
   )
 }
 
