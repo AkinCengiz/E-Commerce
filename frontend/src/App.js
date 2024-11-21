@@ -6,14 +6,23 @@ import Account from './pages/Account';
 import ProductDetail from './pages/ProductDetail';
 import ShoppingCart from './pages/ShoppingCart';
 import SingleBlog from './pages/SingleBlog';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Search from './components/Modals/Search';
-import Dialog from './components/Modals/Dialog';
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      <Routes>
+        <Route index path='/' element={<Home />} />
+        <Route path='/blogs' element={<BlogList />}/>
+        <Route path='/shop' element={<Shop />}/>
+        <Route path='/contact' element={<ContactPage />}/>
+        <Route path='/product/:id' element={<ProductDetail />}/>
+        <Route path='/auth' element={<Account />}/>
+        <Route path='/cart' element={<ShoppingCart />}/>
+        <Route path='/blog/:id' element={<SingleBlog />}/>
+        <Route path='/cart' element={<ShoppingCart />}/>
+      </Routes>
     </div>
   );
 }

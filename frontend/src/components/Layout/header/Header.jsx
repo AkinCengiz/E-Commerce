@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import "./Header.css"
 
 const Header = ({setIsShow}) => {
@@ -29,10 +30,10 @@ const Header = ({setIsShow}) => {
                 <nav className="navigation">
                   <ul className="menu-list">
                     <li className="menu-list-item">
-                      <a href="index.html" className="menu-link active">
-                        Home
-                        <i className="bi bi-chevron-down"></i>
-                      </a>
+                    <Link to={"/"} className="menu-link active">
+                      Home
+                      <i className="bi bi-chevron-down"></i>
+                    </Link>
                       <div className="menu-dropdown-wrapper">
                         <ul className="menu-dropdown-content">
                           <li>
@@ -66,10 +67,10 @@ const Header = ({setIsShow}) => {
                       </div>
                     </li>
                     <li className="menu-list-item megamenu-wrapper">
-                      <a href="shop.html" className="menu-link">
+                      <Link to={"/shop"} className="menu-link">
                         Shop
                         <i className="bi bi-chevron-down"></i>
-                      </a>
+                      </Link>
                       <div className="menu-dropdown-wrapper">
                         <div className="menu-dropdown-megamenu">
                           <div className="megamenu-links">
@@ -173,14 +174,14 @@ const Header = ({setIsShow}) => {
                       </div>
                     </li>
                     <li className="menu-list-item">
-                      <a href="blog.html" className="menu-link">
-                        Blog
-                      </a>
+                      <Link to={"/blogs"} className="menu-link">
+                      Blog
+                      </Link>
                     </li>
                     <li className="menu-list-item">
-                      <a href="contact.html" className="menu-link">
-                        Contact
-                      </a>
+                      <Link to={"/contact"} className="menu-link">
+                        Contact 
+                      </Link>
                     </li>
                   </ul>
                 </nav>
@@ -188,9 +189,9 @@ const Header = ({setIsShow}) => {
               </div>
               <div className="header-right">
                 <div className="header-right-links">
-                  <a href="account.html" className="header-account">
-                    <i className="bi bi-person"></i>
-                  </a>
+                  <Link to={"/auth"} className="header-account">
+                  <i className="bi bi-person"></i>
+                  </Link>
                   <button className="search-button" onClick={() => setIsShow(true)}>
                     <i className="bi bi-search"></i>
                   </button>
@@ -198,10 +199,10 @@ const Header = ({setIsShow}) => {
                     <i className="bi bi-heart"></i>
                   </a>
                   <div className="header-cart">
-                    <a href="cart.html" className="header-cart-link">
+                    <Link to={"/cart"} className="header-cart-link">
                       <i className="bi bi-bag"></i>
                       <span className="header-cart-count">0</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
