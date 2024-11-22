@@ -22,6 +22,7 @@ function App() {
         <Route path='/cart' element={<ShoppingCart />}/>
         <Route path='/blog/:id' element={<SingleBlog />}/>
         <Route path='/cart' element={<ShoppingCart />}/>
+        <Route path='/cart' element={<ShoppingCart />}/>
       </Routes>
     </div>
   );
