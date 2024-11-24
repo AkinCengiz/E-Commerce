@@ -1,10 +1,10 @@
 const express = require("express");
+const router = express.Router()
 const Category = require("../models/Category.js");
-const app = express();
 
 //CREATE CATEGORY START
 
-app.post("/",async(req,res) => {
+router.post("/",async(req,res) => {
     try {
         const {name,image} = req.body;
         const newCategory = new Category({name,image});
@@ -19,7 +19,7 @@ app.post("/",async(req,res) => {
 
 
  //GET CATEGORIES START
-app.get("/",async(req,res) => {
+router.get("/",async(req,res) => {
     try {
         const categories = await Category.find();
         res.status(201).json(categories);
@@ -32,7 +32,7 @@ app.get("/",async(req,res) => {
 
 
  //GET CATEGORY START
-app.get("/:categoryId",async (req,res) => {
+router.get("/:categoryId",async (req,res) => {
     try {
         const categoryId = req.params.categoryId;
         try {
@@ -51,7 +51,7 @@ app.get("/:categoryId",async (req,res) => {
  //GET CATEGORY END
 
  //UPDATE CATEGORY START
-app.put("/:categoryId",async(req,res) => {
+router.put("/:categoryId",async(req,res) => {
     try {
         const categoryId = req.params.categoryId;
         const updatedCategory = req.body;
@@ -73,7 +73,7 @@ app.put("/:categoryId",async(req,res) => {
  //UPDATE CATEGORY END
 
  //DELETE CATEGORY START
-app.delete("/:categoryId",async(req,res) => {
+router.delete("/:categoryId",async(req,res) => {
     try {
         const categoryId = req.params.categoryId;
         const deletedCategory = await Category.findByIdAndDelete(categoryId);
@@ -89,3 +89,5 @@ app.delete("/:categoryId",async(req,res) => {
     }
 })
  //DELETE CATEGORY END
+
+ module.exports = router;

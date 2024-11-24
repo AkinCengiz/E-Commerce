@@ -1,9 +1,9 @@
 const express = require("express");
+const router = express.Router();
 const Product = require("../models/Product.js");
-const app = express();
 
 //CREATE PRODUCT START
-app.post("/",async(req,res) => {
+router.post("/",async(req,res) => {
     try {
         const newProduct = new Product(req.body);
         newProduct.save();
@@ -17,7 +17,7 @@ app.post("/",async(req,res) => {
 //CREATE PRODUCT END
 
 //GET PRODUCTS START
-app.get("/", async (req,res) => {
+router.get("/", async (req,res) => {
     try {
         const products = await Product.find();
         res.status(200).json(products);
@@ -30,7 +30,7 @@ app.get("/", async (req,res) => {
 
 
 //GET PRODUCT START
-app.get("/:productId", async (req,res) => {
+router.get("/:productId", async (req,res) => {
     try{
         const productId = req.params.productId;
         const product = await Product.findById(productId);
@@ -47,7 +47,7 @@ app.get("/:productId", async (req,res) => {
 //GET PRODUCT END
 
 //UPDATE PRODUCT START
-app.put("/:productId", async(req,res) => {
+router.put("/:productId", async(req,res) => {
     try {
         const productId = req.params.productId;
         const updateInfo = req.body;
@@ -66,7 +66,7 @@ app.put("/:productId", async(req,res) => {
 //UPDATE PRODUCT END
 
 //DELETE PRODUCT START
-app.delete("/:productId",async (req,res) => {
+router.delete("/:productId",async (req,res) => {
     try {
         const productId = req.params.productId;
         const deletedProduct = await Product.findByIdAndDelete(productId);
@@ -82,3 +82,5 @@ app.delete("/:productId",async (req,res) => {
 })
 
 //DELETE PRODUCT END
+
+module.exports = router;
