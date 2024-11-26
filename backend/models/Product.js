@@ -9,7 +9,16 @@ const productShema = new mongoose.Schema({
     description : {type : String, default : ""},
     colors : {type : Array, default : [] },
     sizes : {type : Array, default : ["XS","SM","M","L","XL","XXL"]},
-    stockCode : {type : String, required : true}
+    stockCode : {type : String, required : true},
+    discount : {type : Number, default : 0.00},
+    category : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Category",
+        required : true
+    }
+},
+{
+    timestamps : true
 });
 
 const Product = mongoose.model("Product",productShema);
