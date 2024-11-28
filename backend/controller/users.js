@@ -4,11 +4,12 @@ const User = require("../models/User.js");
 
 
 
-//CREATE USER START
+//CREATE-REGISTER USER START
 
-router.post("/",async (req,res)=>{
+router.post("/register",async (req,res)=>{
     try {
-        const newUser = new User(req.body);
+        const {username,password,email} = req.body;
+        const newUser = new User({username : username, password:password, email : email});
         await newUser.save();
         res.status(201).json(newUser);
     } catch (error) {
@@ -16,8 +17,36 @@ router.post("/",async (req,res)=>{
         res.status(500).json({error : "Sunucu hatası..."});
     }
 })
-
 //CREATE USER END
+
+//LOGIN USER START
+router.post("/login",async(req,res) => {
+    try {
+        const {email,password} = req.body;
+        const user = await User.findOne({email});
+
+        if(!user){
+            return res.status(404).json({error : "Email adresine bağlı bir kullanıcı bulunamadı."});
+        }
+        if(user.password !== password){
+            return res.status(401).json({error : "Geçersiz parola..."});
+        }
+        res.status(200).json({
+            id : user._id,
+            username : user.username,
+            email : user.email,
+            profileImage : user.profileImage,
+            role : user.role
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error : "Server hatası"});
+    }
+})
+
+//LOGIN USER END
+
 
 
 //GET USERS START
