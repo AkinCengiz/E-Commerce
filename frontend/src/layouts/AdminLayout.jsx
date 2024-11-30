@@ -143,7 +143,7 @@ const AdminLayout = ({children}) => {
       </Sider>
       <Layout>
         <Header style={{}}>Header</Header>
-        <Content style={{ padding : "50px"}}>{children}</Content>
+        <Content style={{ padding : "20px"}}>{children}</Content>
         <Footer style={{}}>Footer</Footer>
       </Layout>
     </Layout>

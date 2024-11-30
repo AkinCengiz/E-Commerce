@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button, Form, Input, Radio } from 'antd';
+import { Button, Form, Input } from 'antd';
 
 const CreateCategory = () => {
     const [form] = Form.useForm();
