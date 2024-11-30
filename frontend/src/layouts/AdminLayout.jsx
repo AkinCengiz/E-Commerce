@@ -122,7 +122,7 @@ const AdminLayout = ({children}) => {
   return (
     <div className='admin-layout'>
       <Layout style={{minHeight:"100vh"}}>
-      <Sider width="20%" style={{}}>
+      <Sider width="20%" style={{}} collapsed= {collapsed}>
       <Button
         type="primary"
         onClick={toggleCollapsed}
