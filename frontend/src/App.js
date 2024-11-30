@@ -7,7 +7,17 @@ import ProductDetail from './pages/ProductDetail';
 import ShoppingCart from './pages/ShoppingCart';
 import SingleBlog from './pages/SingleBlog';
 import { Route, Routes } from 'react-router-dom';
+import CreateCategory from './pages/Admin/Categories/CreateCategory';
+import Dashboard from './pages/Admin/Dashboard';
+import CategoryList from './pages/Admin/Categories/CategoryList';
 import './App.css';
+import UpdateCategory from './pages/Admin/Categories/UpdateCategory';
+import CreateProduct from './pages/Admin/Products/CreateProduct';
+import UpdateProduct from './pages/Admin/Products/UpdateProduct';
+import ProductList from './pages/Admin/Products/ProductList';
+import Blogs from './pages/Admin/Blogs/Blogs';
+import CreateBlog from './pages/Admin/Blogs/CreateBlog';
+import UpdateBlog from './pages/Admin/Blogs/UpdateBlog';
 
 function App() {
   return (
@@ -23,6 +33,18 @@ function App() {
         <Route path='/blogdetail' element={<SingleBlog />}/>
         <Route path='/cart' element={<ShoppingCart />}/>
         <Route path='/cart' element={<ShoppingCart />}/>
+        <Route path='/admin/*'>
+          <Route index element={<Dashboard />}/>
+          <Route path='categories' element={<CategoryList/>} />
+          <Route path='categories/create' element={<CreateCategory/>} />
+          <Route path='categories/update' element={<UpdateCategory/>} />
+          <Route path='products' element={<ProductList/>} />
+          <Route path='products/create' element={<CreateProduct/>} />
+          <Route path='products/update' element={<UpdateProduct/>} />
+          <Route path='blogs' element={<Blogs/>} />
+          <Route path='blogs/create' element={<CreateBlog/>} />
+          <Route path='blogs/update' element={<UpdateBlog/>} />
+        </Route>
       </Routes>
     </div>
   );
