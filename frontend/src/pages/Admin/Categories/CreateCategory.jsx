@@ -1,27 +1,47 @@
-import React, {useState} from 'react'
-import { Button, Form, Input } from 'antd';
+import React, { useState } from "react";
+import { Button, Form, Input } from "antd";
 
 const CreateCategory = () => {
     const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState('vertical');
-  const onFormLayoutChange = ({ layout }) => {
-    setFormLayout(layout);
-  };
-  return (
-    <div>
-        <Form layout={formLayout} form={form} initialValues={{layout: formLayout}}>
-            <Form.Item label="Category Name">
-                <Input placeholder="Category Name" />
-            </Form.Item>
-            <Form.Item label="Image Url">
-                <Input placeholder="Image Url" />
-            </Form.Item>
-            <Form.Item>
-                <Button type="primary">Create Category</Button>
-            </Form.Item>
-        </Form>
-    </div>
-  )
-}
+    const formLayout = "vertical";
 
-export default CreateCategory
+  const handleCreateCategory = async(values) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/categories",{
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(values)
+      });
+      if(response.ok){
+        console.log("Kategori başarıyla kaydedildi.");
+      }else{
+        console.log("Kategori oluşturulurken hata meydana geldi..")
+      }
+    } catch (error) {
+      console.log("Sunucu hatası...");
+    }
+  }
+
+  return (
+    <Form
+      layout={formLayout}
+      form={form}
+      initialValues={{ layout: formLayout }}
+      onFinish={handleCreateCategory}
+    >
+      <Form.Item label="Category Name" name="name">
+        <Input placeholder="Category Name" />
+      </Form.Item>
+      <Form.Item label="Image Url" name="image">
+        <Input placeholder="Image Url"/>
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">Create Category</Button>
+      </Form.Item>
+    </Form>
+  );
+};
+
+export default CreateCategory;

@@ -18,6 +18,7 @@ import ProductList from './pages/Admin/Products/ProductList';
 import Blogs from './pages/Admin/Blogs/Blogs';
 import CreateBlog from './pages/Admin/Blogs/CreateBlog';
 import UpdateBlog from './pages/Admin/Blogs/UpdateBlog';
+import UserList from './pages/Admin/Users/UserList';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path='/cart' element={<ShoppingCart />}/>
         <Route path='/admin/*'>
           <Route index element={<Dashboard />}/>
+          <Route path='users' element={<UserList/>} />
           <Route path='categories' element={<CategoryList/>} />
           <Route path='categories/create' element={<CreateCategory/>} />
           <Route path='categories/update' element={<UpdateCategory/>} />

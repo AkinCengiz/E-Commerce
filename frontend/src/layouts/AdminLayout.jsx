@@ -142,9 +142,9 @@ const AdminLayout = ({children}) => {
       />
       </Sider>
       <Layout>
-        <Header style={{}}>Header</Header>
+        <Header style={{color:"white"}}>Admin Panel</Header>
         <Content style={{ padding : "20px"}}>{children}</Content>
-        <Footer style={{}}>Footer</Footer>
+        <Footer style={{textAlign:"center",backgroundColor:"#001529", color:"white"}}>&copy;YMYP-4</Footer>
       </Layout>
     </Layout>
     </div>

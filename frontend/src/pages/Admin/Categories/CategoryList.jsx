@@ -12,7 +12,11 @@ const CategoryList = () => {
       dataIndex: 'image',
       key: 'image',
       with : "25%",
-      render: (imgUrl) => <img src={imgUrl} alt='Category Image'/>,
+      render: (img) => {
+        const imgUrl = img;
+        console.log(imgUrl);
+      return <img src={img} alt="category image"/>
+    }
     },
     {
       title: 'Name',
