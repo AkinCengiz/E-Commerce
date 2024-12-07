@@ -4,7 +4,8 @@ import { DashboardOutlined, AppstoreOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   LaptopOutlined,
-  BlockOutlined
+  BlockOutlined,
+  UsergroupAddOutlined
   } from "@ant-design/icons"
 import { useNavigate } from 'react-router-dom';
 import PropTypes from "prop-types"
@@ -46,22 +47,6 @@ const AdminLayout = ({children}) => {
           path : "/admin/categories/create",
           onClick : () => {
             navigate("/admin/categories/create")
-          }
-        },
-        {
-          key:"2-3",
-          label: "Update Category",
-          path : "/admin/categories/update",
-          onClick : () => {
-            navigate("/admin/categories/update")
-          }
-        },
-        {
-          key:"2-4",
-          label: "Delete Category",
-          path : "/admin/categories/delete",
-          onClick : () => {
-            navigate("/admin/categories/delete")
           }
         }
       ]
@@ -110,6 +95,22 @@ const AdminLayout = ({children}) => {
           path : "/admin/blogs/create",
           onClick : () => {
             navigate("/admin/blogs/create")
+          }
+        }
+      ]
+    },
+    {
+      key:"5",
+      icon :<UsergroupAddOutlined />,
+      label: "Users",
+      path : "/",
+      children : [
+        {
+          key:"5-1",
+          label: "User List",
+          path : "/admin/users",
+          onClick : () => {
+            navigate("/admin/users")
           }
         }
       ]

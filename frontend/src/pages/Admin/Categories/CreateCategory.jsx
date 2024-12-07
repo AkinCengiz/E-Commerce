@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
+import {useNavigate} from "react-router-dom"
 
 const CreateCategory = () => {
     const [form] = Form.useForm();
+    const navigate = useNavigate();
     const formLayout = "vertical";
 
   const handleCreateCategory = async(values) => {
@@ -16,6 +18,7 @@ const CreateCategory = () => {
       });
       if(response.ok){
         console.log("Kategori başarıyla kaydedildi.");
+        navigate("/admin/categories");
       }else{
         console.log("Kategori oluşturulurken hata meydana geldi..")
       }

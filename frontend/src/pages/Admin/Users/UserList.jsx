@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Table } from "antd"
+import { Button, Space, Table } from "antd";
+import { useNavigate } from 'react-router-dom';
+
 
 const UserList = () => {
+
     const [dataSource,setDataSource] = useState([]);
-          
+    const navigate = useNavigate();        
       const columns = [
         {
           title: 'Avatar',
@@ -25,6 +28,20 @@ const UserList = () => {
             title: 'Role',
             dataIndex: 'role',
             key: 'role',
+        },
+        {
+          title: 'Action',
+          key: 'action',
+          render: (_, record) => (
+            <Space size="small" style={{display:"flex", flexDirection:"column"}}>
+              <Button onClick={() => navigate("/admin/user/update")} color="success" variant="solid">
+              Update
+              </Button>
+              <Button color="danger" variant="solid">
+              Remove
+              </Button>
+            </Space>
+          ),
         }
       ];
     

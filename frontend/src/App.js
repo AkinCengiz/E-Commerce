@@ -39,13 +39,13 @@ function App() {
           <Route path='users' element={<UserList/>} />
           <Route path='categories' element={<CategoryList/>} />
           <Route path='categories/create' element={<CreateCategory/>} />
-          <Route path='categories/update' element={<UpdateCategory/>} />
+          <Route path='categories/update/:id' element={<UpdateCategory/>} />
           <Route path='products' element={<ProductList/>} />
           <Route path='products/create' element={<CreateProduct/>} />
-          <Route path='products/update' element={<UpdateProduct/>} />
+          <Route path='products/update/:id' element={<UpdateProduct/>} />
           <Route path='blogs' element={<Blogs/>} />
           <Route path='blogs/create' element={<CreateBlog/>} />
-          <Route path='blogs/update' element={<UpdateBlog/>} />
+          <Route path='blogs/update/:id' element={<UpdateBlog/>} />
         </Route>
       </Routes>
     </div>

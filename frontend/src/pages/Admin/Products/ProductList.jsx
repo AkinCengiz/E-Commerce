@@ -114,8 +114,11 @@ const ProductList = () => {
       ),
     }
   ];
-  return (    
-    <Table dataSource={dataSource} columns={columns} />
+  return (  
+    <React.Fragment>
+      <h2>Product List</h2>
+      <Table dataSource={dataSource} columns={columns} />
+    </React.Fragment>  
   )
 }
 
