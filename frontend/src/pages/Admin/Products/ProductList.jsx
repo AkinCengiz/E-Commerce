@@ -104,7 +104,7 @@ const ProductList = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="small" style={{display:"flex", flexDirection:"column"}}>
-          <Button onClick={() => navigate("/admin/products/update")} color="success" variant="solid">
+          <Button onClick={() => navigate(`/admin/products/update/${record._id}`)} color="success" variant="solid">
           Update
           </Button>
           <Button color="danger" variant="solid">

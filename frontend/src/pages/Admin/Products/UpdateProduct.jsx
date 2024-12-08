@@ -1,34 +1,111 @@
 import React, { useEffect, useState} from 'react'
-import { Button, Form, Input, Checkbox, Select } from 'antd';
+import { Button, Form, Input, Checkbox, Select, message } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const UpdateProduct = () => {
   const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState('vertical');
+  const navigate = useNavigate();
   const { TextArea } = Input;
-  const onFormLayoutChange = ({ layout }) => {
-    setFormLayout(layout);
-  }
-  const plainOptions = ['Red', 'Blue', 'Green'];
-  
+  const params = useParams();
+  const productId = params.id;
+  const formLayout = 'vertical';
+  const plainOptions = ['red', 'blue', 'green',"purple","black","white"];  
   const sizeOption = ["XS","SM","M","L","XL","XXL"]
   const [categories, setCategories] = useState([]);
-  const getCategories = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/categories");
+  // const getCategories = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:5000/api/categories");
 
-      if (response.ok) {
-        const data = await response.json();
-        setCategories(data);
-      } else {
-        console.log("Veri getirme işlemi başarısız...");
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setCategories(data);
+  //     } else {
+  //       console.log("Veri getirme işlemi başarısız...");
+  //     }
+  //   } catch (error) {
+  //     console.log("Sunucu hatası...");
+  //   }
+  // };
+  // const getProduct = async() => {
+  //   try {
+  //     const response = await fetch(`http://localhost:5000/api/products/${productId}`)
+  //     if(response.ok){
+  //       const data = await response.json();
+  //       form.setFieldsValue(data)
+  //     }else{
+  //       message.error("Ürün getirme başarısız...");
+  //       return;
+  //     }
+  //   } catch (error) {
+      
+  //   }
+  // }
+  useEffect(() => {
+    const data = async() => {
+      try {
+        const [categoryResponse,productResponse] = await Promise.all([
+          fetch("http://localhost:5000/api/categories"),
+          fetch(`http://localhost:5000/api/products/${productId}`)
+        ]);
+
+        if(!categoryResponse.ok || !productResponse.ok){
+          message.error("Veri getirilirken sorun oluştu...");
+          return;
+        }
+
+        const [categoryData,productData] = await Promise.all([
+          categoryResponse.json(),
+          productResponse.json()
+        ]);
+        
+
+        setCategories(categoryData);
+        if(productData){
+          console.log("Product Data : ",productData)
+          form.setFieldsValue({
+            name : productData.name,
+            price : productData.price,
+            discount : productData.discount,
+            sizes : productData.sizes,
+            colors : productData.colors,
+            img : productData.img,
+            description : productData.description,
+            category : productData.category,
+            stockCode : productData.stockCode
+          });
+        }
+        console.log(productData);
+        console.log(categoryData)
+      } catch (error) {
+        console.log("Sunucu hatası...");
+      }
+    }
+    data();
+  }, [productId,form]);
+
+  const updateProduct = async(values) => {
+    
+    const { colors, sizes, ...restValues } = values;
+    console.log(colors,sizes);
+    try {
+      const response = await fetch(`http://localhost:5000/api/products/${productId}`,{
+        method:"PUT",
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify({...restValues,colors,sizes})
+      });
+
+      if(response.ok){
+        message.success("Ürün başarıyla güncellendi...");
+        navigate("/admin/products");
+      }else{
+        message.error("Ürün güncelleme işlemi başarısız...");
       }
     } catch (error) {
       console.log("Sunucu hatası...");
     }
-  };
-  useEffect(() => {
-    getCategories();
-  }, []);
+  }
 
   return (
     <div>
@@ -36,7 +113,8 @@ const UpdateProduct = () => {
       <Form
         layout={formLayout}
         form={form}
-        initialValues={{ layout: formLayout, colors:["Red"], sizes : ["M"] }}
+        onFinish={updateProduct}
+        initialValues={{ layout: formLayout,colors:["Red"], sizes : ["M"] }}
       >
         <Form.Item label="Product Name" name="name" rules={[{ required: true, message: 'Please enter product name' }]}>
           <Input placeholder="Product Name" />
@@ -79,7 +157,7 @@ const UpdateProduct = () => {
           </Select>
         </Form.Item>
         <Form.Item style={{ marginTop: "15px" }}>
-          <Button type="primary">Create Category</Button>
+          <Button type="primary" htmlType='submit'>Update Category</Button>
         </Form.Item>
       </Form>
     </div>
