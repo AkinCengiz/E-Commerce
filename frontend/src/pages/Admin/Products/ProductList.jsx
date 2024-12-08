@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Space, Table } from "antd";
+import { Button, message, Space, Table } from "antd";
 import { useNavigate } from 'react-router-dom';
 
 const ProductList = () => {
@@ -28,6 +28,23 @@ const ProductList = () => {
       }
         
       
+    } catch (error) {
+      console.log("Sunucu hatası...");
+    }
+  }
+  const deleteProduct = async(productId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/products/${productId}`,{
+        method:"DELETE"
+      });
+      if(response.ok){
+        message.success("Ürün başarıyla silindi...");
+        setDataSource((prevProduct) => {
+          return prevProduct.filter((product => product._id !== productId));//id 5 olmayan ürünleri
+        })
+      }else{
+        message.error("Silme işlemi başarısız...");
+      }
     } catch (error) {
       console.log("Sunucu hatası...");
     }
@@ -107,7 +124,7 @@ const ProductList = () => {
           <Button onClick={() => navigate(`/admin/products/update/${record._id}`)} color="success" variant="solid">
           Update
           </Button>
-          <Button color="danger" variant="solid">
+          <Button color="danger" variant="solid" onClick={() => deleteProduct(record._id)}>
           Remove
           </Button>
         </Space>

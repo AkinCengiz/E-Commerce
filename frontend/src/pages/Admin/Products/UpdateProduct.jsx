@@ -26,6 +26,25 @@ const UpdateProduct = () => {
   //     console.log("Sunucu hatası...");
   //   }
   // };
+
+  //  const getProduct = async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:5000/api/products/${productId}`)
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       form.setFieldsValue({
+  //         ...data,
+  //         colors: data.colors ,
+  //         sizes: data.sizes ,      
+  //       });
+  //     } else {
+  //       message.error("Ürün verisi alınamadı.");
+  //     }
+  //   } catch (error) {
+  //     message.error("Sunucu hatası...");
+  //   }
+  // }
+
   // const getProduct = async() => {
   //   try {
   //     const response = await fetch(`http://localhost:5000/api/products/${productId}`)
@@ -83,6 +102,10 @@ const UpdateProduct = () => {
     data();
   }, [productId,form]);
 
+  // useEffect(() => {
+  //   getProduct();
+  //   getCategories();
+  // }, [productId]);
   const updateProduct = async(values) => {
     
     const { colors, sizes, ...restValues } = values;

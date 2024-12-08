@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Categories.css";
 import CategoryItem from "./CategoryItem";
+import { message } from "antd";
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/categories");
+        if(response.ok){
+          const data = await response.json();
+          setCategories(data);
+        }else{
+          message.error("Categoriler getirilirken bir sorun meydana geldi...");
+        }
+      } catch (error) {
+        console.log("Sunucu hatası...");
+      }
+    }
+    getCategories();
+    console.log(categories)
+  },[setCategories]);
   return (
     <div>
       <section className="categories">
@@ -12,12 +31,12 @@ const Categories = () => {
             <p>Summer Collection New Morden Design</p>
           </div>
           <ul className="category-list">
-            <CategoryItem/>
-            <CategoryItem/>
-            <CategoryItem/>
-            <CategoryItem/>
-            <CategoryItem/>
-            <CategoryItem/>
+            {
+              categories.map((category) => (
+                <CategoryItem key={category._id} category={category}/>
+              ))
+            }
+            
             {/* <li className="category-item">
               <a href="#">
                 <img
