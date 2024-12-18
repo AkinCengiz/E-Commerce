@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext} from "react";
+import { CartContext } from "../../../contexts/CartProvider";
 import { Link } from 'react-router-dom'
 import "./Header.css"
 
 const Header = ({setIsShow}) => {
+  const { cartItems } = useContext(CartContext);
+
   return (
     <div>
       <header>
@@ -201,7 +204,7 @@ const Header = ({setIsShow}) => {
                   <div className="header-cart">
                     <Link to={"/cart"} className="header-cart-link">
                       <i className="bi bi-bag"></i>
-                      <span className="header-cart-count">0</span>
+                      <span className="header-cart-count">{cartItems.length}</span>
                     </Link>
                   </div>
                 </div>

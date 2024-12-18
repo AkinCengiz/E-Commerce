@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Products.css";
 import ProductItem from "./ProductItem";
 
 const Products = () => {
+  const [products, setProducts] = useState([]);
+  // const [cartItems, setCartItems] = useState([]);
+  // const addToCart = (cartItem) => {
+  //   setCartItems([...cartItems,cartItem]);
+  // }
+  //console.log(cartItems);
+  useEffect(()=> {
+    const getProducts = async() => {
+      try {
+        const response = await fetch("http://localhost:5000/api/products");
+        if(response.ok){
+          const data = await response.json();
+          console.log(data);
+          setProducts(data);
+        }else{
+          console.log("Ürünler getirilirken hata meydana geldi...");
+        }
+      } catch (error) {
+        console.log("Sunucu hatası...");
+      }
+    }
+    getProducts();
+  },[setProducts]);
   return (
     <div>
         <section className="products">
@@ -14,10 +37,12 @@ const Products = () => {
       <div className="product-wrapper product-carousel">
         <div className="glide__track">
           <ul className="product-list glide__slides" id="product-list">
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
+            {
+              
+              products.map(product => (
+                <ProductItem product={product} key={product._id}/>
+              ))
+            }
           </ul>
         </div>
         <div className="glide__arrows">
