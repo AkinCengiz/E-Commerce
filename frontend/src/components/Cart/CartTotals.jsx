@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { CartContext } from "../../contexts/CartProvider";
 
 const CartTotals = () => {
+  const { cartItems, calculatePrice } = useContext(CartContext);
+  const [ fastCargo, setFastCargo] = useState(false);
+  //console.log(cartItems)
+  const totalPrice = cartItems.map(product => {
+    return calculatePrice(product);
+  })
+  const cargoPrice = 15.00;
+  //console.log(totalPrice);
+
+  // const getTotalPrice = () => {
+  //   const result = totalPrice.reduce((prev,current)=> {
+  //     return prev + current;
+  //   },0).toFixed();
+  // }
+
+  const result = totalPrice.reduce((prev,current) => {
+         return prev + current;
+       },0);
+  //console.log("Get Total Price : ", result)
+  //console.log(fastCargo);
+
+  const generalTotals = fastCargo ? (result + cargoPrice).toFixed(2) : result.toFixed(2);
   return (
     <div class="cart-totals">
       <h2>Cart totals</h2>
@@ -9,7 +32,7 @@ const CartTotals = () => {
           <tr class="cart-subtotal">
             <th>Subtotal</th>
             <td>
-              <span id="subtotal">$316.00</span>
+              <span id="subtotal">${result.toFixed(2)}</span>
             </td>
           </tr>
           <tr>
@@ -19,7 +42,7 @@ const CartTotals = () => {
                 <li>
                   <label>
                     Fast Cargo: $15.00
-                    <input type="checkbox" id="fast-cargo" />
+                    <input type="checkbox" id="fast-cargo" checked={fastCargo} onChange={() => setFastCargo(!fastCargo)} />
                   </label>
                 </li>
                 <li>
@@ -31,7 +54,7 @@ const CartTotals = () => {
           <tr>
             <th>Total</th>
             <td>
-              <strong id="cart-total">$316.00</strong>
+              <strong id="cart-total">${generalTotals}</strong>
             </td>
           </tr>
         </tbody>

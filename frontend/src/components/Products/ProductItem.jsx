@@ -1,11 +1,13 @@
 import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../contexts/CartProvider';
 import PropTypes from "prop-types";
 import "./ProductItem.css";
 
 const ProductItem = ({product}) => {
   const {cartItems, addToCart } = useContext(CartContext)
-  console.log(cartItems);
+  const navigate = useNavigate();
+  //console.log(cartItems);
   return (
     <div>
         <li className="product-item glide__slide">
@@ -46,10 +48,10 @@ const ProductItem = ({product}) => {
                   <button>
                     <i className="bi bi-heart-fill"></i>
                   </button>
-                  <a href="#">
-                    <i className="bi bi-eye-fill"></i>
+                  <a onClick={() => navigate(`productDetail/${product._id}`)}>
+                    <i className="bi bi-eye-fill" ></i>
                   </a>
-                  <a href="#">
+                  <a href={`productDetail/${product._id}`}>
                     <i className="bi bi-share-fill"></i>
                   </a>
                 </div>

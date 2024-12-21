@@ -20,7 +20,7 @@ const Categories = () => {
       }
     }
     getCategories();
-    console.log(categories)
+    //console.log(categories)
   },[setCategories]);
   return (
     <div>

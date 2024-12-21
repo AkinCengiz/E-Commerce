@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CartContext } from "../../contexts/CartProvider";
 
 const CartTable = () => {
-  const { cartItems } = useContext(CartContext)
+  const { cartItems, removeFromCart } = useContext(CartContext)
   return (
     <table class="shop-table">
       <thead>
@@ -23,7 +23,7 @@ const CartTable = () => {
               <td></td>
               <td class="cart-image">
                 <img src={product.img[0]} alt="" />
-                <i class="bi bi-x delete-cart" data-id="1"></i>
+                <i class="bi bi-x delete-cart" onClick={() => removeFromCart(product._id)}></i>
               </td>
               <td>{product.name}</td>
               <td>${unitPrice.toFixed(2)}</td>

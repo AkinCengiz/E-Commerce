@@ -30,7 +30,7 @@ function App() {
         <Route path='/blogs' element={<BlogList />}/>
         <Route path='/shop' element={<Shop />}/>
         <Route path='/contact' element={<ContactPage />}/>
-        <Route path='/productdetail' element={<ProductDetail />}/>
+        <Route path='/productdetail/:id' element={<ProductDetail />}/>
         <Route path='/auth' element={<Account />}/>
         <Route path='/cart' element={<ShoppingCart />}/>
         <Route path='/blogdetail' element={<SingleBlog />}/>

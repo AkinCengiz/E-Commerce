@@ -15,7 +15,7 @@ const Products = () => {
         const response = await fetch("http://localhost:5000/api/products");
         if(response.ok){
           const data = await response.json();
-          console.log(data);
+          //console.log(data);
           setProducts(data);
         }else{
           console.log("Ürünler getirilirken hata meydana geldi...");

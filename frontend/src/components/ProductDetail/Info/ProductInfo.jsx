@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./ProductInfo.css"
+import { CartContext } from '../../../contexts/CartProvider';
 
-const ProductInfo = () => {
+const ProductInfo = ({singleProduct}) => {
+  const [product, setProduct] = useState(null);
+  const { addToCart } = useContext(CartContext)
+  useEffect(()=> {
+    setProduct(singleProduct);
+  },singleProduct)
+  console.log(singleProduct)
+
   return (
     <div className="product-info">
-          <h1 className="product-title">Ridley High Waist</h1>
+          <h1 className="product-title">{product?.name}</h1>
           <div className="product-review">
             <ul className="product-star">
               <li>
@@ -26,12 +34,11 @@ const ProductInfo = () => {
             <span>2 reviews</span>
           </div>
           <div className="product-price">
-            <s className="old-price">$165</s>
-            <strong className="new-price">$100</strong>
+            <s className="old-price">${product?.price.toFixed(2)}</s>
+            <strong className="new-price">${(product?.price - (product?.price * product?.discount)).toFixed(2)}</strong>
           </div>
           <p className="product-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            {product?.description}
           </p>
           <form className="variations-form">
             <div className="variations">
@@ -40,26 +47,17 @@ const ProductInfo = () => {
                   <span>Color</span>
                 </div>
                 <div className="colors-wrapper">
-                  <div className="color-wrapper">
-                    <label className="blue-color">
-                      <input type="radio" name="product-color" />
-                    </label>
-                  </div>
-                  <div className="color-wrapper">
-                    <label className="red-color">
-                      <input type="radio" name="product-color" />
-                    </label>
-                  </div>
-                  <div className="color-wrapper active">
-                    <label className="green-color">
-                      <input type="radio" name="product-color" />
-                    </label>
-                  </div>
-                  <div className="color-wrapper">
-                    <label className="purple-color">
-                      <input type="radio" name="product-color" />
-                    </label>
-                  </div>
+                  {
+                    product?.colors.map((color,index) => {
+                      return (
+                        <div className="color-wrapper" key={index}>
+                        <label className={`${color}-color`}>
+                          <input type="radio" name="product-color" />
+                        </label>
+                      </div>
+                      )
+                    })
+                  }
                 </div>
               </div>
               <div className="values">
@@ -67,11 +65,18 @@ const ProductInfo = () => {
                   <span>Size</span>
                 </div>
                 <div className="values-list">
-                  <span className="active">XS</span>
+                  {
+                    product?.sizes.map((size,index) => {
+                      return (
+                        <span className="" key={index}>{size}</span>
+                      )
+                    })
+                  }
+                  {/* <span className="active">XS</span>
                   <span>S</span>
                   <span>M</span>
                   <span>L</span>
-                  <span>XL</span>
+                  <span>XL</span> */}
                 </div>
               </div>
               <div className="cart-button">
@@ -80,6 +85,7 @@ const ProductInfo = () => {
                   className="btn btn-lg btn-primary"
                   id="add-to-cart"
                   type="button"
+                  onClick={() => addToCart(product)}
                 >
                   Add to cart
                 </button>
@@ -104,7 +110,7 @@ const ProductInfo = () => {
           <div className="product-meta">
             <div className="product-sku">
               <span>SKU:</span>
-              <strong>BE45VGRT</strong>
+              <strong>{product?.stockCode}</strong>
             </div>
             <div className="product-categories">
               <span>Categories:</span>
