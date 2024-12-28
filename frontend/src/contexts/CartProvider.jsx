@@ -7,10 +7,11 @@ const CartProvider = ({ children }) => {
       ? JSON.parse(localStorage.getItem("cartItems"))
       : []
   );
-
+  const [couponDiscount, setCouponDiscount] = useState(0);
   const calculatePrice = (product) => {
       return product.price - (product.price * product.discount);
   }
+  const [ couponCode, setCouponCode ] = useState("");
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -25,7 +26,9 @@ const CartProvider = ({ children }) => {
       return productId !== item._id;
     });
     setCartItems(filterCarts);
+    setCouponDiscount(0);
   }
+  
 
   return (
     <CartContext.Provider
@@ -34,7 +37,11 @@ const CartProvider = ({ children }) => {
         addToCart: addToCart,
         setCartItems: setCartItems,
         removeFromCart,
-        calculatePrice : calculatePrice
+        calculatePrice : calculatePrice,
+        couponCode,
+        setCouponCode,
+        couponDiscount,
+        setCouponDiscount
       }}
     >
       {children}

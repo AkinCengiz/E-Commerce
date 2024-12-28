@@ -38,8 +38,8 @@ router.get("/:couponcode",async(req,res) => {
         if(!coupon){
             return res.status(404).json({error : "Coupon not found!!!"});
         }
-        const {discount, expired,count} = coupon;
-        res.status(200).json({discount, expired,count});
+        const {_id,discount, expired,count} = coupon;
+        res.status(200).json({_id,discount, expired,count});
     } catch (error) {
         console.log(err);
         res.status(500).json({error:error.message});
