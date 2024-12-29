@@ -22,6 +22,7 @@ const CartCoupon = () => {
     if(couponCode.trim().length === 0){
       return message.warning("Kupon kodu değeri boş girilemez...");
     }
+
     try {
       const response = await fetch(`http://localhost:5000/api/coupons/${couponCode}`);
 
@@ -55,6 +56,7 @@ const CartCoupon = () => {
       // })
       //setCartItems(updatedCart);
       setCouponDiscount(data.discount)
+      setCouponCode("");
       
     } catch (error) {
       console.log(error);

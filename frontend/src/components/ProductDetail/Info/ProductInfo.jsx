@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { InputNumber } from "antd"
 import "./ProductInfo.css"
 import { CartContext } from '../../../contexts/CartProvider';
 
@@ -9,6 +10,8 @@ const ProductInfo = ({singleProduct}) => {
     setProduct(singleProduct);
   },singleProduct)
   console.log(singleProduct)
+
+  const [amount, setAmount] = useState(1);
 
   return (
     <div className="product-info">
@@ -80,12 +83,12 @@ const ProductInfo = ({singleProduct}) => {
                 </div>
               </div>
               <div className="cart-button">
-                <input type="number" value="1" min="1" id="quantity" />
+              <td><InputNumber min={1} max={100} defaultValue={amount} onChange={(value) => setAmount(value)} /></td>
                 <button
                   className="btn btn-lg btn-primary"
                   id="add-to-cart"
                   type="button"
-                  onClick={() => addToCart(product)}
+                  onClick={() => addToCart(product,amount)}
                 >
                   Add to cart
                 </button>

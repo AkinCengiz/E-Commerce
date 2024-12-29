@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
+import { message } from "antd";
+import { loadStripe} from "@stripe/stripe-js"
 import { CartContext } from "../../contexts/CartProvider";
 
 const CartTotals = () => {
   const { cartItems, calculatePrice, couponDiscount,setCouponDiscount } = useContext(CartContext);
   const [ fastCargo, setFastCargo] = useState(false);
   //console.log(cartItems)
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
   
   const totalPrice = cartItems.map(product => {
     return calculatePrice(product);
@@ -12,9 +17,48 @@ const CartTotals = () => {
   const cargoPrice = 15.00;
   //console.log(totalPrice);
 
+  const PUBLIC_KEY = "pk_test_51QbLj3GhhH6gzdTXTJTSrGXyGBXjzPTXEKp1eK6PVyC7zkNaf30reMgBY0SdCdwnh2MKyaivjJcUdU8GYC1Kxmrc00mQNLiWGd"
 
+  const handlePayment = async () => {
+
+    if(!user){
+      return message.info("Ödeme işlemleri için giriş yapmanız gerekmektedir...");
+    }
+
+    const body = {
+      products : cartItems,
+      totalPrice : result,
+      user : user,
+      cargoFee : fastCargo ? cargoPrice : 0
+    };
+    try {
+      const stripe = await loadStripe(PUBLIC_KEY);
+
+      const response = await fetch(`http://localhost:5000/api/payment`,{
+        method : "POST",
+        headers : { "Content-type" : "application/json"},
+        body : JSON.stringify(body)
+      });
+      if(!response.ok){
+        return message.error("Ödeme işlemi başarısız...");
+      }
+
+      const data = await response.json();
+
+      const result = await stripe.redirectToCheckout({
+        sessionId : data.id
+      })
+
+      if(result.error){
+        throw new Error(result.error.message)
+      }
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
   
-
   let result = totalPrice.reduce((prev,current) => {
          return prev + current;
        },0);
@@ -63,7 +107,7 @@ const CartTotals = () => {
         </tbody>
       </table>
       <div class="checkout">
-        <button class="btn btn-lg">Proceed to checkout</button>
+        <button class="btn btn-lg" type="button" onClick={handlePayment}>Proceed to checkout</button>
       </div>
     </div>
   );

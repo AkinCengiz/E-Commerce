@@ -8,18 +8,44 @@ const CartProvider = ({ children }) => {
       : []
   );
   const [couponDiscount, setCouponDiscount] = useState(0);
+
   const calculatePrice = (product) => {
-      return product.price - (product.price * product.discount);
-  }
-  const [ couponCode, setCouponCode ] = useState("");
+    return (product.price - product.price * product.discount) * product.quantity;
+  };
+
+  const [couponCode, setCouponCode] = useState("");
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (cartItem) => {
-    setCartItems([...cartItems, cartItem]);
-  };
+  // const addToCart = (cartItem) => {
+  //   setCartItems([...cartItems, cartItem]);
+  // };
+
+  const addToCart = (cartItem,amount = 0) => {
+
+    const isTrue = cartItems.some(x => x._id === cartItem._id);
+
+    if(!isTrue){
+      setCartItems((prev) => [
+        ...prev,
+        {
+          ...cartItem,
+          quantity : amount > 0 ? amount : 1
+        }
+      ]);
+    }else{
+      const updatedCart = cartItems.map(item => {
+            if(item._id === cartItem._id){
+              item.quantity = amount > 0 ? amount : item.quantity + 1;
+              return item;
+            }
+            return item;
+          });
+          setCartItems(updatedCart);
+    }
+  }
 
   const removeFromCart = (productId) => {
     const filterCarts = cartItems.filter((item) => {
@@ -27,8 +53,7 @@ const CartProvider = ({ children }) => {
     });
     setCartItems(filterCarts);
     setCouponDiscount(0);
-  }
-  
+  };
 
   return (
     <CartContext.Provider
@@ -37,11 +62,11 @@ const CartProvider = ({ children }) => {
         addToCart: addToCart,
         setCartItems: setCartItems,
         removeFromCart,
-        calculatePrice : calculatePrice,
+        calculatePrice: calculatePrice,
         couponCode,
         setCouponCode,
         couponDiscount,
-        setCouponDiscount
+        setCouponDiscount,
       }}
     >
       {children}

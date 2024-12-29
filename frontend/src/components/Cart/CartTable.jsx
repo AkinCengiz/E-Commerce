@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
+import { InputNumber } from "antd"
 import { CartContext } from "../../contexts/CartProvider";
 
 const CartTable = () => {
-  const { cartItems, removeFromCart } = useContext(CartContext)
+  const { cartItems, removeFromCart,addToCart } = useContext(CartContext)
   return (
     <table class="shop-table">
       <thead>
@@ -16,7 +17,7 @@ const CartTable = () => {
       <tbody class="cart-wrapper">
         {
           cartItems.map(product => {
-            const unitPrice = product.price * (1 - product.discount);
+            const unitPrice = product.price * (1 - product.discount); 
             return(
             <tr class="cart-item">
               
@@ -27,8 +28,9 @@ const CartTable = () => {
               </td>
               <td>{product.name}</td>
               <td>${unitPrice.toFixed(2)}</td>
-              <td class="product-quantity">1</td>
-              <td class="product-subtotal">${(unitPrice * 1).toFixed(2)}</td>
+              {/* <td class="product-quantity">{product.quantity}</td> */}
+              <td><InputNumber min={1} max={100} defaultValue={product.quantity} onChange={(value) => addToCart(product,value)} /></td>
+              <td class="product-subtotal">${(unitPrice * product.quantity).toFixed(2)}</td>
             </tr>)
           })
         }
